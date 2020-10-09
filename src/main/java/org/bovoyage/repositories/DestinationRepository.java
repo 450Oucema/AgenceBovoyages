@@ -1,9 +1,6 @@
 package org.bovoyage.repositories;
 
 import org.bovoyage.metier.Destination;
-import org.bovoyage.metier.Image;
-import sun.security.krb5.internal.crypto.Des;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

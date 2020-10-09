@@ -6,9 +6,9 @@ services:
         volumes:
             - db-data:/var/lib/postgresql/data:rw
         environment:
-            POSTGRES_USER: maximalsound
-            POSTGRES_PASSWORD: maximalsound
-            POSTGRES_DB: maximalsound
+            POSTGRES_USER: bovoyages
+            POSTGRES_PASSWORD: bovoyages
+            POSTGRES_DB: bovoyages
         ports:
             - "5432:5432"
 volumes:

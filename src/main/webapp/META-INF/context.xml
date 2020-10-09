@@ -9,7 +9,7 @@
         	auth="Container"
         	type="javax.sql.DataSource"
 			driverClassName="org.postgresql.Driver"
-			url="jdbc:postgresql://localhost:5432/maximalsound"
-			username="maximalsound"
-			password="maximalsound"/>
+			url="jdbc:postgresql://localhost:5432/bovoyages"
+			username="bovoyages"
+			password="bovoyages"/>
 </Context>

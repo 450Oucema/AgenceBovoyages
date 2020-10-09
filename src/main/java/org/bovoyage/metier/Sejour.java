@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "datesvoyages")
+@Table(name = "sejour")
 public class Sejour implements Serializable
 {
 	/**

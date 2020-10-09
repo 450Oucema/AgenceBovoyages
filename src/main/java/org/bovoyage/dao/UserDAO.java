@@ -29,7 +29,7 @@ public class UserDAO
 	public User getUser(int id) throws SQLException
 	{
 		User user = null;
-		String sql = "SELECT * FROM users WHERE IDuser=?;";
+		String sql = "SELECT * FROM users WHERE id=?;";
 		
 		Connection con = dao.getConnection();
 		PreparedStatement st = con.prepareStatement(sql);
@@ -130,32 +130,10 @@ public class UserDAO
 		return false;
 	}
 
-	public boolean register(User user) {
-		String sql = "INSERT INTO users (id, email, password, nom, prenom, adresse) VALUES (?, ?, ?, ?, ?, ?);";
-		try {
-			Connection con = dao.getConnection();
-			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, user.getId());
-			st.setString(2, user.getEmail());
-			st.setString(3, user.getPassword());
-			st.setString(4, user.getNom());
-			st.setString(5, user.getPrenom());
-			st.setString(6, user.getAdresse());
-			st.executeUpdate();
-			dao.releaseConnection(con);
-
-			return true;
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-
-			return false;
-		}
-	}
-
 	public void order(Panier panier, User user)
 	{
 		String commande  = "INSERT INTO commandes VALUES (?, ?, ?);";
-		String commander = "INSERT INTO commander VALUES (?, ?, ?, ?);";
+		String commander = "INSERT INTO commande_item VALUES (?, ?, ?, ?);";
 
 		try {
 			String commandeId = UUID.randomUUID().toString();

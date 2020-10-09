@@ -2,26 +2,29 @@ package org.bovoyage.metier;
 
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
-@Table(name = "commander")
+@Table(name = "commande_item")
 public class Item
 {
     @Id
-    @Column(name = "idCommander")
+    @Column(name = "id")
     protected String id;
 
     @ManyToOne(fetch= FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "idCommande")
+    @JoinColumn(name = "commande")
     protected Commande commande;
 
     @ManyToOne(fetch= FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "idVoyage")
+    @JoinColumn(name = "sejour")
     protected Sejour sejour;
 
+    @Column(name = "nbpersonnes")
     protected int nbPersonnes;
 
     public Item() {
+        this.id = UUID.randomUUID().toString();
     }
 
     public Item(String id, Commande commande, Sejour sejour, int nbPersonnes) {

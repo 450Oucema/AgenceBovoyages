@@ -1,15 +1,25 @@
 package org.bovoyage.repositories;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.bovoyage.dao.UserDAO;
+import org.bovoyage.metier.Destination;
 import org.bovoyage.metier.User;
+import org.bovoyage.security.Password;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 public class UserRepository
 {
     private static EntityManagerFactory emf;
     private EntityManager em = null;
     private static UserRepository instance = null;
+    private Log log = LogFactory.getLog(UserRepository.class);
+
 
     public static UserRepository getInstance()
     {
@@ -71,5 +81,27 @@ public class UserRepository
         em.close();
 
         return isRegistered;
+    }
+
+    public User authenticate(String email, String password)
+    {
+        User user = new User();
+        log.debug("test" + user.toString());
+        EntityTransaction tx = em.getTransaction();
+
+        tx.begin();
+        try {
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class);
+            query.setParameter("email", email);
+            query.setParameter("password", Password.passwordHash(password));
+            user = (User) query.getSingleResult();
+            log.debug(user.toString());
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+
+        return user;
     }
 }

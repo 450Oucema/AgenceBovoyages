@@ -3,6 +3,7 @@ package org.bovoyage.metier;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "commandes")
@@ -12,7 +13,7 @@ public class Commande
     protected String id;
 
     @ManyToOne(fetch= FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "user")
     protected User user;
 
     protected boolean payee;
@@ -21,6 +22,7 @@ public class Commande
     private Set<Item> items = new HashSet<Item>();
 
     public Commande() {
+        this.id = UUID.randomUUID().toString();
     }
 
     public Commande(String id, User user, boolean payee) {

@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -193,17 +194,16 @@ public class ControleurServlet extends HttpServlet
 	}
 
 	private String actionConnexion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserDAO userDAO = new UserDAO(dao);
-		log.info(request.getParameter("email") + " " + request.getParameter("password"));
-		if(userDAO.authenticate(request.getParameter("email"), request.getParameter("password"))) {
-			User user = userDAO.getUserByEmail(request.getParameter("email"));
-			request.getSession().setAttribute("user", user);
-
-			return this.actionAccueil(request, response);
-		} else {
+		User user = userRepository.authenticate(request.getParameter("email"), request.getParameter("password"));
+		if(isNull(user)) {
 			request.getSession().setAttribute("errorConnexion", true);
+
 			return "/login.jsp";
 		}
+
+		request.getSession().setAttribute("user", user);
+
+		return this.actionAccueil(request, response);
 	}
 
 	private String actionLogin(HttpServletRequest request, HttpServletResponse response) {

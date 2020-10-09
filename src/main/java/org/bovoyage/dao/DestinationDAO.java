@@ -85,7 +85,7 @@ public class DestinationDAO
 	public Vector<Sejour> getSejours(int id) throws SQLException
 	{
 		Vector<Sejour> sejours = new Vector<Sejour>();
-		String sql = "SELECT * FROM datesVoyages WHERE IDdestination=?;";
+		String sql = "SELECT * FROM sejour WHERE IDdestination=?;";
 		Connection con = dao.getConnection();
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setInt(1, id);
@@ -133,7 +133,7 @@ public class DestinationDAO
 	public Sejour getSejour(int id) throws SQLException
 	{
 		Sejour sejour = null;
-		String sql = "SELECT * FROM datesVoyages WHERE idSejour=?;";
+		String sql = "SELECT * FROM sejour WHERE idSejour=?;";
 		
 		Connection con = dao.getConnection();
 		PreparedStatement st = con.prepareStatement(sql);
@@ -182,11 +182,11 @@ public class DestinationDAO
 
 	public ArrayList<Voyage> getCommandes(User user) {
 		String sql = "SELECT *\n" +
-				"FROM commander, commandes, datesvoyages, destinations\n" +
-				"WHERE \"idUser\" = ? \n" +
-				"AND commandes.id = commander.\"idCommande\"\n" +
-				"AND commander.\"idVoyage\" = datesvoyages.idsejour\n" +
-				"AND destinations.iddestination = datesvoyages.iddestination;";
+				"FROM commande_item, commandes, sejour, destinations\n" +
+				"WHERE \"user\" = ? \n" +
+				"AND commandes.id = commande_item.commande\n" +
+				"AND commande_item.sejour = sejour.idsejour\n" +
+				"AND destinations.iddestination = sejour.iddestination;";
 
 		ArrayList<Voyage> voyages = new ArrayList<Voyage>();
 
