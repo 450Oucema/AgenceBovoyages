@@ -1,0 +1,15 @@
+version: '3.5'
+
+services:
+    db:
+        image: postgres:12.1
+        volumes:
+            - db-data:/var/lib/postgresql/data:rw
+        environment:
+            POSTGRES_USER: maximalsound
+            POSTGRES_PASSWORD: maximalsound
+            POSTGRES_DB: maximalsound
+        ports:
+            - "5432:5432"
+volumes:
+    db-data: {}
